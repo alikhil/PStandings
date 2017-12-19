@@ -119,7 +119,7 @@ export class SubmissionsComponent extends React.Component<RouteComponentProps<{ 
                             endDate={mm(this.state.endDate)} 
                             onApply={this.onApply}/>
                     </div>
-                        <a id='filterButton' className='btn btn-default' onClick={this.onFilterClick}> Отфильтровать</a>
+                        <a className='btn btn-default' onClick={this.onFilterClick}> Отфильтровать</a>
                 </form>
             </div>
             <br/>
