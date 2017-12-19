@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es6",
+    "jsx": "react",
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "types": ["webpack-env"],
+    "experimentalDecorators": true,
+    "typeRoots": [
+      "ClientApp/@types"
+    ]
+  },
+  "exclude": [
+      "bin",
+      "node_modules"
+  ]
+}

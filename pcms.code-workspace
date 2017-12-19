@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Standings"
+		},
+		{
+			"path": "Standings.Data"
+		},
+		{
+			"path": "Standings.Parser"
+		}
+	],
+	"settings": {}
+}
