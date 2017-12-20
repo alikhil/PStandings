@@ -19,7 +19,7 @@ interface Submission {
     contest: string;
 }
 
-interface DateRanges {
+export interface DateRanges {
     startDate: Date;
     endDate: Date;
 }
@@ -42,7 +42,7 @@ export class SubmissionsComponent extends React.Component<RouteComponentProps<{ 
             count: 200, 
             page: 0,
             prefix: "",
-            startDate: mm().subtract(29, 'days').toDate(),
+            startDate: new Date(2015, 1, 1),
             endDate: mm().toDate()
         };
     }
