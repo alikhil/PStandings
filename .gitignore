@@ -238,3 +238,4 @@ _Pvt_Extensions
 
 .DS_Store
 Standings/node_modules/*
+Standings/wwwroot/dist/*
