@@ -959,6 +959,11 @@
         "supports-color": "2.0.0"
       }
     },
+    "chart.js": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/chart.js/-/chart.js-1.1.1.tgz",
+      "integrity": "sha1-qbFwVCIL1Fy9sXb9a8uHg++HGn0="
+    },
     "chokidar": {
       "version": "1.7.0",
       "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.7.0.tgz",
@@ -4703,6 +4708,11 @@
         "bootstrap-daterangepicker": "2.1.25",
         "object-assign": "4.1.1"
       }
+    },
+    "react-chartjs": {
+      "version": "0.8.0",
+      "resolved": "https://registry.npmjs.org/react-chartjs/-/react-chartjs-0.8.0.tgz",
+      "integrity": "sha1-1BOGs9PL/vkAP1plXn6kikn7+hk="
     },
     "react-deep-force-update": {
       "version": "2.0.1",
