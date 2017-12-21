@@ -47,9 +47,10 @@
     "with-query": "^1.0.2"
   },
   "dependencies": {
+    "@types/react-chartjs-2": "^2.0.2",
     "autobind-decorator": "^2.1.0",
-    "chart.js": "^1.1.1",
-    "react-chartjs": "^0.8.0"
+    "chart.js": "^2.7.1",
+    "react-chartjs-2": "^2.6.4"
   },
   "config": {
     "commitizen": {
