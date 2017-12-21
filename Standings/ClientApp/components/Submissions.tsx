@@ -42,7 +42,7 @@ export class SubmissionsComponent extends React.Component<RouteComponentProps<{ 
             count: 200, 
             page: 0,
             prefix: "",
-            startDate: new Date(2015, 1, 1),
+            startDate: new Date(2016, 9, 1),
             endDate: mm().toDate()
         };
     }
