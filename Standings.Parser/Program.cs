@@ -27,7 +27,6 @@ namespace Standings.Parser
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
-            // Create service provider
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             var parser = ServiceProvider.GetService<Parser>();
@@ -38,7 +37,6 @@ namespace Standings.Parser
          private static void ConfigureServices(IServiceCollection services)
         {
 
-            // Build configuration
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false)
@@ -49,37 +47,13 @@ namespace Standings.Parser
                         .EnableSensitiveDataLogging());
 
 
-            // Add logging
             LoggerFabric = new LoggerFactory()
                 .AddConsole((LogLevel)Enum.Parse(typeof(LogLevel), Configuration["Logging:LogLevel:Default"]));
                 
-            // serviceCollection.AddSingleton(new LoggerFactory()
-                // .AddConsole((LogLevel)Enum.Parse(typeof(LogLevel), Configuration["Logging:LogLevel:Default"])));
             services.AddLogging();
             
-            //EmailConnectionInfo emailConnection = new EmailConnectionInfo();
-            //emailConnection.FromEmail = configuration["Email:FromEmail"].ToString();
-            //emailConnection.ToEmail = configuration["Email:ToEmail"].ToString();
-            //emailConnection.MailServer = configuration["Email:MailServer"].ToString();
-            //emailConnection.NetworkCredentials = new NetworkCredential(configuration["Email:UserName"].ToString(), configuration["Email:Password"].ToString());
-            //emailConnection.Port = int.Parse(configuration["Email:Port"]);
-
-            // // Initialize serilog logger
-            // Log.Logger = new LoggerConfiguration()
-            //      //.WriteTo.MSSqlServer(configuration.GetConnectionString("LoggingSQLServer"), "logs")
-            //      //.WriteTo.Email(emailConnection, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error, mailSubject: "Azure Backup Error")
-            //      .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
-            //      .MinimumLevel.Debug()
-            //      .Enrich.FromLogContext()
-            //      .CreateLogger();
-
-            // Add access to generic IConfigurationRoot
             services.AddSingleton<IConfigurationRoot>(Configuration);
 
-            // Add services
-            // serviceCollection.AddTransient<IBackupService, BackupService>();
-
-            // Add app
             services.AddTransient<Parser>();
         }
     }
