@@ -49,7 +49,7 @@ namespace Standings.Parser
             XmlReader reader = XmlReader.Create(xmlFile);
             var standings = (Standing)serializer.Deserialize(reader);
             var contestId = Path.GetFileNameWithoutExtension(xmlFile);
-            Logger.LogDebug($"performing contest with name: {Standings.Contest.Name} and id: {contestId}");
+            Logger.LogDebug($"performing contest with name: {standings.Contest.Name} and id: {contestId}");
             
             var contest = await context.Contests.FindAsync(contestId);
             if (contest == null)
@@ -57,7 +57,7 @@ namespace Standings.Parser
                 Logger.LogInformation($"contest with id = {contestId} does not exist in db");
                 var generation = contestId.StartsWith("algo-") ? "GR1" : "GR2";
 
-                contest = Standings.Contest.ToDbModel(contestId).SetNameAndGeneration(contestId, generation);
+                contest = standings.Contest.ToDbModel(contestId).SetNameAndGeneration(contestId, generation);
                 context.Contests.Add(contest);
                 // marking is unchanged works very slow
                 var allStudents = await context.Students.ToListAsync();
