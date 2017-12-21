@@ -8,6 +8,7 @@ using Standings.Models;
 using Standings.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Standings.Controllers
 {
@@ -30,7 +31,6 @@ namespace Standings.Controllers
             return await Task.FromResult(DataContext.Contests
                 .Where(c => c.Generation == generation)
                 .Select(ToContest));
-            // return (await Contests.GetAll()).Where(c => c.Generation.Equals(generation));
         }
 
         public Contest ToContest(Standings.Data.Models.Contest contest)
@@ -98,7 +98,6 @@ namespace Standings.Controllers
                 .Skip(page * count)
                 .Take(count)
                 .Select(ToSubmittion));
-            // return await Submissions.FindWhichStartsWith(prefix, count, page);
         }
 
         private Submission ToSubmittion(Standings.Data.Models.Submission submission)
@@ -150,5 +149,46 @@ namespace Standings.Controllers
             return await Task.FromResult(stats);
         }
 
+
+
+        [HttpGet("analytics/common")]
+        public async Task<object> GetCommonAnalytics(string generation, long startDate, long endDate, string type, string prefix = "")
+        {
+            Func<Data.Models.Submission, string> getGroupper = (s) =>
+            {
+                var date = JavaTimeStampToDateTime(s.Time);
+                if (type == "month")
+                    return date.ToString("yyyy-MM");
+                else // if type == "day"
+                    return date.ToString("yyyy-MM-dd");
+            };
+            var groups = DataContext.Submissions
+                .Where(s => s.Time >= startDate * 1000 && s.Time <= endDate * 1000)
+                .Where(s => string.IsNullOrEmpty(prefix) || s.SubmitterId.StartsWith(prefix))
+                .GroupBy(s => getGroupper(s))
+                .Select(g => new {
+                    Key = g.Key,
+                    Success = g.Count(s => s.IsAccepted),
+                    All = g.Count()
+                })
+                .OrderBy(g => g.Key);
+
+            var result = new
+            { 
+                type, 
+                keys = groups.Select(g => g.Key),
+                all = groups.Select(g => g.All),
+                success = groups.Select(g => g.Success)
+            };
+            return await Task.FromResult(result);
+        }
+
+        public static DateTime JavaTimeStampToDateTime( double javaTimeStamp )
+        {
+            // Java timestamp is milliseconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddMilliseconds( javaTimeStamp ).ToLocalTime();
+            return dtDateTime;
+        }
     }
 }

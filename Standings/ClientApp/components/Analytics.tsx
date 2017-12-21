@@ -28,20 +28,30 @@ export class AnalyticsComponent extends React.Component<RouteComponentProps<{ ge
         console.log(`selected ${key}`);
     }
 
+
+    private getComponentToRender() {
+        switch (this.state.activeTab) {
+            default:
+            case 'main':
+                return <CommonAnalyticsComponent generation={this.props.match.params.generation} /> ;
+
+            case 'contests':
+                return <ContestAnalyticsComponent />;
+            
+            case 'users':
+                return <UserAnalyticsComponent />;
+        }
+    }
+
     public render() {
         return <ComponentWithNav generation={this.props.match.params.generation}>
             <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.handleSelect}>
                 <NavItem eventKey='main' >Общая</NavItem>
-                <NavItem eventKey='contests' title="Item">Контесты</NavItem>
+                <NavItem eventKey='contests' disabled>Контесты</NavItem>
                 <NavItem eventKey='users' disabled>Участники</NavItem>
             </Nav>
             <br/>
-            { this.state.activeTab === 'main' 
-                ? <CommonAnalyticsComponent /> 
-                : (this.state.activeTab === 'contests' 
-                    ? <ContestAnalyticsComponent />
-                    : <UserAnalyticsComponent />)
-            }
+            { this.getComponentToRender() }
         </ComponentWithNav>;
     }
 }
