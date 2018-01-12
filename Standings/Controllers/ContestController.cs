@@ -76,7 +76,7 @@ namespace Standings.Controllers
                     Name = o.Name,
                     ProblemsStatus = stats.Problems
                         .Select(p => o.ProblemsStatusDict.GetValueOrDefault(p.Alias, null) ?? new { Accepted = false, Attempts = 0 })
-                        .Select(ob => ob.Attempts == 0 ? "." : ((ob.Accepted ? "+" : "-") + (ob.Attempts - (ob.Accepted ? -1 : 0)).ToString()))
+                        .Select(ob => ob.Attempts == 0 ? "." : ((ob.Accepted && ob.Attempts == 1 ? "+" : ( ob.Accepted ? "+" : "-") + (ob.Attempts + (ob.Accepted ? -1 : 0)).ToString())))
                         .ToList(),
                     TotalSolved = o.ProblemsStatusDict.Count(kv => kv.Value.Accepted)})
                 .OrderByDescending(r => r.TotalSolved)
