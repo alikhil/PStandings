@@ -24,4 +24,5 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x |  bash -
 RUN apt-get install -y nodejs
 
 VOLUME [ "/root/.aspnet/DataProtection-Keys" ]
-ENTRYPOINT ["dotnet", "Standings.dll"]
+ENTRYPOINT ["dotnet", "standings.dll"]
+# ENTRYPOINT ["dotnet", "Standings.dll"]
