@@ -4,6 +4,7 @@ using System.Linq;
 
 using DM = Standings.Data.Models;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Standings.Parser
 {
@@ -12,23 +13,11 @@ namespace Standings.Parser
         public static DM.Contest ToDbModel(this XmlModels.Contest xcontest, string problemIdPrefix)
         {
             var contest = new  DM.Contest();
+            contest.LastUpdate = DateTime.Now;
             contest.Name = xcontest.Name;
             var problems = xcontest.Challenge.Problems
                 .Select(p => new DM.Problem().SetName(p.Name).SetAlias(p.Alias));
 
-            // var students = xcontest.Sessions
-            //     .Select(s => 
-            //         new DM.Student()
-            //             .SetName(s.Party)
-            //             .SetSubmissions(s.Problems.SelectMany(p => 
-            //                                                 p.Runs.Select(r => 
-            //                                                     new DM.Submission()
-            //                                                         .SetFromRun(r)
-            //                                                         .SetProblem(problems.First(pr => pr.Alias == p.Alias))
-            //                                                         )
-            //                                                 )
-            //                             )
-            //             );
             var studentDict = new Dictionary<string, DM.Student>();
             Func<string, DM.Student> getStudent = (string name) => 
             {
@@ -61,8 +50,6 @@ namespace Standings.Parser
                 .Select(p => p.SetName(problems.First(pr => pr.Alias == p.Alias).Name));
             
             contest.Problems = problms.Select(pr => pr.SetSubmissions(pr.Submissions.Select(s => s.SetProblem(pr)))).ToList();
-            Console.WriteLine(contest.Problems.Select(p => p.Submissions.Select(s => $"{s.Contest.PcmsId}{s.Problem.Id}{s.Submitter.Name}{s.Time}").Distinct().Count()).Sum());
-            // foreach(var problem in contest.Problems)
             contest.Submissions = contest.Problems.SelectMany(p => p.Submissions).ToList();
             return contest;
         }
@@ -140,6 +127,13 @@ namespace Standings.Parser
         {
             student.Name = name;
             return student;
+        }
+
+        public static void SetEntityState<T>(this IEnumerable<T> enumerable, DbContext db, EntityState state)
+            where T : class
+        {
+            foreach (var elem in enumerable)
+                db.Entry(elem).State = state;
         }
     }
 }

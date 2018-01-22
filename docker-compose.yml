@@ -1,0 +1,41 @@
+version: "3"
+services:
+
+  parser:
+    build: 
+      context: "."
+      dockerfile: "Parser.dockerfile"
+    volumes:
+      - "./s2:/samples/"
+    depends_on:
+      - db
+      - migrations
+
+  standings:
+    build:
+      context: "."
+      dockerfile: "Standings.dockerfile"
+    depends_on:
+      - db
+      - migrations
+    ports:
+      - "8080:80"
+    
+
+  db:
+    image: microsoft/mssql-server-linux:2017-latest
+    # volumes:
+      # - ./db-data:/var/opt/mssql
+    ports:
+      - "1432:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=myP@ssw0rd
+
+  migrations:
+    build:
+      context: "."
+      dockerfile: "Data.dockerfile"
+    depends_on:
+      - db
+   

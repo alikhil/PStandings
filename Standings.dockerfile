@@ -2,11 +2,12 @@ FROM microsoft/aspnetcore-build:2.0 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY Standings.Data /Standings.Data
+COPY Standings/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
+COPY Standings ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

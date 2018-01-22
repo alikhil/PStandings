@@ -165,6 +165,7 @@ namespace Standings.Controllers
             var groups = DataContext.Submissions
                 .Where(s => s.Time >= startDate * 1000 && s.Time <= endDate * 1000)
                 .Where(s => string.IsNullOrEmpty(prefix) || s.SubmitterId.StartsWith(prefix))
+                .Where(s => s.Contest.Generation.Equals(generation))
                 .GroupBy(s => getGroupper(s))
                 .Select(g => new {
                     Key = g.Key,

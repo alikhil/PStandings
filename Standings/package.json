@@ -44,7 +44,8 @@
     "url-loader": "0.5.9",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2",
-    "with-query": "^1.0.2"
+    "with-query": "^1.0.2",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22"
   },
   "dependencies": {
     "@types/react-chartjs-2": "^2.0.2",

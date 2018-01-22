@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,9 @@ namespace Standings.Data.Models
         
         public ICollection<Submission> Submissions { get; set; }
         public ICollection<Problem> Problems { get; set; }
-        // public ICollection<Student> Participants { get; set; }
+
+        public string Md5Checksum { get; set; }
+
+        public DateTime LastUpdate { get; set; }
     }
 }

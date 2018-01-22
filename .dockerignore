@@ -1,0 +1,6 @@
+out/
+bin/
+obj/
+.vscode/
+s2/
+samples/

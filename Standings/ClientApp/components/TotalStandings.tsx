@@ -22,14 +22,17 @@ interface StandingsStats {
 
 export class TotalStandings extends React.Component<RouteComponentProps<{ generation: string}>, StandingsStats> {
     
-    constructor(props: RouteComponentProps<{generation: string}>) {
-        super(props);
+    constructor() {
+        super();
         this.state = { isLoading: true, contests: [], results: [], group: '' };
-        fetch(`api/pcms/${props.match.params.generation}/standings`)
-            .then(response => response.json() as Promise<StandingsStats>)
-            .then(data => this.setState.bind(this)({...data, isLoading: false} ));
     }
     
+    public componentDidMount() {
+        fetch(`api/pcms/${this.props.match.params.generation}/standings`)
+                    .then(response => response.json() as Promise<StandingsStats>)
+                    .then(data => this.setState.bind(this)({...data, isLoading: false} ));
+    }
+
     public render() {
         const rows:JSX.Element[] = [];
         let columns:JSX.Element[] = [];

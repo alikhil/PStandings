@@ -11,9 +11,10 @@ using System;
 namespace Standings.Data.Migrations
 {
     [DbContext(typeof(PcmsContext))]
-    partial class PcmsContextModelSnapshot : ModelSnapshot
+    [Migration("20171221130754_AddChecksumAndLastUpdateToContest")]
+    partial class AddChecksumAndLastUpdateToContest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
