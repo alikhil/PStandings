@@ -19,10 +19,7 @@ namespace Standings.Parser
 
         static void Main(string[] args)
         {
-            var m = new MyModel();
-            
-            Console.WriteLine(m.Name);
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Press 'q' to stop");
 
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
@@ -31,6 +28,8 @@ namespace Standings.Parser
 
             var parser = ServiceProvider.GetService<Parser>();
             parser.Start();
+            while(Console.Read()!='q');
+
             LoggerFabric?.Dispose();
         }
         
