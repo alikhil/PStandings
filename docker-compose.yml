@@ -33,7 +33,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=myP@ssw0rd
-    restart: always
+    restart: unless-stopped
 
   migrations:
     build:
