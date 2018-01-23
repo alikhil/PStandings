@@ -10,6 +10,7 @@ services:
     depends_on:
       - db
       - migrations
+    restart: on-failure
 
   standings:
     build:
@@ -20,6 +21,7 @@ services:
       - migrations
     ports:
       - "8080:80"
+    restart: on-failure
     
 
   db:
@@ -31,6 +33,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=myP@ssw0rd
+    restart: always
 
   migrations:
     build:
