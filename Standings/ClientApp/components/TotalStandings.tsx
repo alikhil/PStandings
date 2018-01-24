@@ -18,19 +18,27 @@ interface StandingsStats {
     results: UserResult[];
     isLoading: boolean;
     group: string;
+    generation: string;
 }
 
 export class TotalStandings extends React.Component<RouteComponentProps<{ generation: string}>, StandingsStats> {
     
     constructor() {
         super();
-        this.state = { isLoading: true, contests: [], results: [], group: '' };
+        this.state = { isLoading: true, contests: [], results: [], group: '', generation: 'GR1' };
     }
     
     public componentDidMount() {
-        fetch(`api/pcms/${this.props.match.params.generation}/standings`)
-                    .then(response => response.json() as Promise<StandingsStats>)
-                    .then(data => this.setState.bind(this)({...data, isLoading: false} ));
+        const callback = () => fetch(`api/pcms/${this.state.generation}/standings`)
+            .then(response => response.json() as Promise<StandingsStats>)
+            .then(data => this.setState.bind(this)({...data, isLoading: false} ));
+        
+        if (this.props.match.params.generation) {
+            this.setState({...this.state, generation: this.props.match.params.generation}, callback);
+        } else {
+            callback();
+        }
+        
     }
 
     public render() {
@@ -41,7 +49,7 @@ export class TotalStandings extends React.Component<RouteComponentProps<{ genera
         let id = 1;
         if (this.state.isLoading)
         {
-            return  <ComponentWithNav generation={this.props.match.params.generation}>
+            return  <ComponentWithNav generation={this.state.generation}>
                 <b>Loading...</b>
              </ComponentWithNav>
         }
@@ -70,7 +78,7 @@ export class TotalStandings extends React.Component<RouteComponentProps<{ genera
         allGroups.forEach((elem, i) => 
             groups.push(<MenuItem key={i} eventKey={elem} onSelect={this.onGroupSelect}>Группа {elem.slice(2)}</MenuItem>));
         return <div className='w100'>
-            <ComponentWithNav generation={this.props.match.params.generation}>
+            <ComponentWithNav generation={this.state.generation}>
                 <DropdownButton title="Группа" id="bg-vertical-dropdown-3" className='mb-10' >
                     <MenuItem key={0} eventKey="all" onSelect={this.onGroupSelect}>Все</MenuItem>
                     { groups }

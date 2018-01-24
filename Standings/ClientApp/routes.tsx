@@ -9,7 +9,7 @@ import { AnalyticsComponent } from './components/Analytics';
 
 export const routes = <Layout>
     {/* <Route exact path='/' component={ GenerationsComponent } /> */}
-    <Route exact path='/:generation' component={ TotalStandings } />
+    <Route exact path='/:generation?' component={ TotalStandings } />
     <Route path='/:generation/submissions' component={ SubmissionsComponent } />
     <Route path='/:generation/contests/:contestId' component = { ContestComponent } />
     <Route path='/:generation/analytics' component = { AnalyticsComponent } />
