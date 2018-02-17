@@ -30,6 +30,7 @@ namespace Standings.Controllers
         {
             return await Task.FromResult(DataContext.Contests
                 .Where(c => c.Generation == generation)
+                .OrderBy(c => c.Name)
                 .Select(ToContest));
         }
 
