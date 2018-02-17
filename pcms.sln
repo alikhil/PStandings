@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "standings", "standings\Standings.csproj", "{EC01E497-D339-413D-A7CA-3C2896C2E6B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standings", "Standings\Standings.csproj", "{EC01E497-D339-413D-A7CA-3C2896C2E6B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standings.Data", "Standings.Data\Standings.Data.csproj", "{B0029ABD-865B-4A81-84B3-74FF4F287059}"
 EndProject
