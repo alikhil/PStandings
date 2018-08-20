@@ -6,7 +6,7 @@ services:
       context: "."
       dockerfile: "Parser.dockerfile"
     volumes:
-      - "./s2:/samples/"
+      - "./samples:/samples/"
     depends_on:
       - db
       - migrations
