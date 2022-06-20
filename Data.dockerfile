@@ -1,5 +1,5 @@
 
-FROM microsoft/dotnet:2.0.3-sdk
+FROM microsoft/dotnet:2.1-runtime-bionic
 WORKDIR /app
 
 COPY Standings.Data/*.csproj ./
